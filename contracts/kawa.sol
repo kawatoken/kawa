@@ -268,7 +268,7 @@ contract testing is Context, IERC20, Ownable {
     
     function openTrading() external onlyOwner {
         require(!tradingOpen,"trading is already open");
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);//0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
         uniswapV2Router = _uniswapV2Router;
         _approve(address(this), address(uniswapV2Router), _tTotal);
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
@@ -315,7 +315,7 @@ contract testing is Context, IERC20, Ownable {
     receive() external payable {}
     
     function transferERC20(IERC20 token, uint256 amount) external onlyOwner{ //function to transfer stuck erc20 tokens
-        require(token != IERC20(address(this)),"You can't withdraw kawa tokens from owned by contract."); //test
+        require(token != IERC20(address(this)),"You can't withdraw kawa tokens from owned by contract."); 
         uint256 erc20balance = token.balanceOf(address(this));
         require(amount <= erc20balance, "balance is low");
         token.transfer(marketingWallet, amount);
