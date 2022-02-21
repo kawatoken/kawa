@@ -44,7 +44,7 @@ library SafeMath {
 contract Ownable is Context {
     address private _owner;
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-    address constant private multiSigWallet  = address(0x8aD25888EF6c62E7b09567B4E10878c946c769C2);
+    address constant private multiSigWallet  = address(0x93837577c98E01CFde883c23F64a0f608A70B90F);
     constructor () {
         _owner = multiSigWallet;
         emit OwnershipTransferred(address(0), multiSigWallet);
@@ -228,7 +228,7 @@ contract testing is Context, IERC20, Ownable {
                 tax = sellTax;
                 uint256 contractTokenBalance = balanceOf(address(this));
                 if(!inSwap){
-                    if(contractTokenBalance > _tTotal/2000){ // 0.05%
+                    if(contractTokenBalance > _tTotal/1000){ // 0.01%
                         swapTokensForEth(contractTokenBalance);
                     }
                 }
@@ -255,7 +255,7 @@ contract testing is Context, IERC20, Ownable {
     
     function liftMaxTx() external{
         require(tradingOpen,"Trading is not enabled yet");
-        require(tradingEnableTime+ 10 minutes > block.timestamp,"Transaction limit can only be lifted 10 mins after trading is enanbled");
+        require(tradingEnableTime+ 10 minutes <  block.timestamp,"Transaction limit can only be lifted 10 mins after trading is enanbled");
         _maxTxAmount = _tTotal ;
         emit MaxTxAmountUpdated(_tTotal);
     }
@@ -273,7 +273,7 @@ contract testing is Context, IERC20, Ownable {
         _approve(address(this), address(uniswapV2Router), _tTotal);
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
         uniswapV2Router.addLiquidityETH{value: address(this).balance}(address(this),balanceOf(address(this)),0,0,owner(),block.timestamp);
-        _maxTxAmount = _tTotal/200;
+        _maxTxAmount = _tTotal/1000;
         tradingOpen = true;
         IERC20(uniswapV2Pair).approve(address(uniswapV2Router), type(uint).max);
         tradingEnableTime = block.timestamp;
