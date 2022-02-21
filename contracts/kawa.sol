@@ -113,7 +113,7 @@ contract testing is Context, IERC20, Ownable {
     uint256 private constant sellTax = 9;
     uint256 private tax = 0;
     uint256 private tradingEnableTime;
-    uint256 private constant _TIMELOCK = 200 seconds;//2 days;
+    uint256 private constant _TIMELOCK = 2 days;
     address payable private marketingWallet;
     address payable private devWallet;
     string private constant _name = "testing";
