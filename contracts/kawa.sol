@@ -100,7 +100,7 @@ interface IUniswapV2Router02 {
     ) external payable returns (uint amountToken, uint amountETH, uint liquidity);
 }
 
-contract testing is Context, IERC20, Ownable {
+contract Kawakami is Context, IERC20, Ownable {
     using SafeMath for uint256;
     mapping (address => uint256) private balance;
     mapping (address => mapping (address => uint256)) private _allowances;
@@ -116,8 +116,8 @@ contract testing is Context, IERC20, Ownable {
     uint256 private constant _TIMELOCK = 2 days;
     address payable private marketingWallet;
     address payable private devWallet;
-    string private constant _name = "testing";
-    string private constant _symbol = "testing";
+    string private constant _name = "Kawakami";
+    string private constant _symbol = "KAWA";
     uint8 private constant _decimals = 9;
     bool private inSwap = false;
     
